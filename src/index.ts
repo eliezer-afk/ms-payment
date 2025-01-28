@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import router from './routers/routerscontrollers';
+import router from './routers/routers';
 import sequelize from './config/db';
 import colors from 'colors';
 
@@ -9,9 +9,9 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-app.use('/api/catalog', router);
+app.use('/api/pago', router);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4003;
 
 sequelize.sync().then(() => {
     app.listen(PORT, () => {
