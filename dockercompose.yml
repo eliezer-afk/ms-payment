@@ -1,13 +1,29 @@
+version: "3.8"
 services:
+  db:
+    image: postgres:latest
+    container_name: pagos-contenedor
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 4884
+      POSTGRES_DB: Microservicios
+    ports:
+      - "5432:5432"
+    networks:
+      - ms-network
+
   ms-payment:
-    image: ms-payment:latest
     build:
-      context: .
+      context: ./ms-payment
       dockerfile: Dockerfile
+    image: ms-payment:latest
     ports:
       - "8083:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
+      - NODE_ENV=development
+    volumes:
+      - ./ms-payment:/usr/src/app
+      - /usr/src/app/node_modules
     networks:
       - ms-network
 
